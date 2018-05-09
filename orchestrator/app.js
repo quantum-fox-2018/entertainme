@@ -7,6 +7,7 @@ const createError = require('http-errors'),
       indexRouter = require('./routes/index'),
       usersRouter = require('./routes/users'),
       moviesRouter = require('./routes/movies')
+      tvSeriesRouter = require('./routes/tvseries')
       app = express();
 
 // view engine setup
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/movies', moviesRouter)
+app.use('/tvseries', tvSeriesRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

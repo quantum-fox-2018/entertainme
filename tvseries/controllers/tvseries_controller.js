@@ -1,12 +1,12 @@
-const Movie = require('../models/Movie')
+const TVSeries = require('../models/TVSeries')
 const Tag = require('../models/Tag')
 
-const getMovies = async (req, res) => {
+const getTVSeries = async (req, res) => {
   try {
-    let movies = await Movie.find()
+    let getTVSeries = await TVSeries.find()
     res.status(200).json({
-      message: 'success get data movies',
-      data: movies
+      message: 'success get data tv series',
+      data: getTVSeries
     })
   } catch (error) {
     res.status(500).json({
@@ -15,7 +15,7 @@ const getMovies = async (req, res) => {
   }
 }
 
-const addMovie = async (req, res) => {
+const addTVSeries = async (req, res) => {
   try {
     let tag = await Tag.find({title: req.body.tag})
     if(tag === null) {
@@ -24,7 +24,7 @@ const addMovie = async (req, res) => {
           title: req.body.tag
         })
         try {
-          let newMovie = await Movie.create({
+          let newTVSeries = await TVSeries.create({
             title: req.body.title,
             overview: req.body.overview,
             poster_path: req.body.poster_path,
@@ -36,8 +36,8 @@ const addMovie = async (req, res) => {
             status: req.body.status
           })
           res.status(201).json({
-            message: 'success add movie',
-            data: newMovie
+            message: 'success add tv series',
+            data: newTVSeries
           })
         } catch (error) {
           res.status(500).json({
@@ -51,7 +51,7 @@ const addMovie = async (req, res) => {
       }
     } else {
       try {
-        let newMovie = await Movie.create({
+        let newTVSeries = await TVSeries.create({
           title: req.body.title,
           overview: req.body.overview,
           poster_path: req.body.poster_path,
@@ -64,8 +64,8 @@ const addMovie = async (req, res) => {
         })
 
         res.status(201).json({
-          message: 'success add movie',
-          data: newMovie
+          message: 'success add TV Series',
+          data: newTVSeries
         })
       } catch (error) {
         res.status(500).json({
@@ -81,6 +81,7 @@ const addMovie = async (req, res) => {
 }
 
 module.exports = {
-  getMovies,
-  addMovie
+  getTVSeries,
+  addTVSeries
 }
+  

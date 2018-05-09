@@ -8,11 +8,10 @@ const createError = require('http-errors'),
       //routing
       indexRouter = require('./routes/index'),
       usersRouter = require('./routes/users'),
-      moviesRouter = require('./routes/movies')
-      app = express()
-
-// view engine setup
-const dbURI = 'mongodb://localhost/movies'
+      moviesRouter = require('./routes/movies'),
+      app = express(),
+      dbURI = 'mongodb://localhost/movies'
+      
 mongoose.connect(dbURI)
 mongoose.connection.on('connected', function () {  
   console.log('Mongoose default connection open to ' + dbURI);
@@ -28,6 +27,7 @@ mongoose.connection.on('disconnected', function () {
   console.log('Mongoose default connection disconnected'); 
 })
 
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
