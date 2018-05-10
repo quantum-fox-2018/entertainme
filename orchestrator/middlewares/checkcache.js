@@ -9,6 +9,7 @@ const checkCache = (req, res, next) => {
         msg: 'success get data',
         data: JSON.parse(reply)
       })
+      return
     } else {
       console.log('cache not exist!!')
       next()
