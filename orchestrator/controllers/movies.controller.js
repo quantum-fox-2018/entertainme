@@ -21,13 +21,21 @@ module.exports = {
 
       console.log('new movies==', movies)
       if(movies) {
-        client.get('entertainme', (err, reply) => {
-          let existCache = JSON.parse(reply)
-          console.log('cache===', existCache.movies.data, '------------')
-          existCache.movies.push(movies.data.data)
-          client.set('entertainme', JSON.stringify(existCache))
-          return res.status(200).json(movies.data)
+        let movies = await axios({
+          method: 'get',
+          url: `http://localhost:3001/movies`,
         })
+        let tvseries = await axios({
+          method: 'get',
+          url: `http://localhost:3002/tvseries`,
+        })
+        let dataAll = {
+          movies: movies.data.data,
+          series: tvseries.data.data
+        }
+          client.set('entertainme', JSON.stringify(dataAll))
+          console.log('new movies==', movies, "-============")
+          return res.status(200).json("success add new movie")
       }else {
         res.status(400).json({
           msg: 'failed add movies',
