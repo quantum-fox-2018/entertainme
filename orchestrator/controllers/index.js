@@ -7,25 +7,24 @@ const getEntertainme = async (req, res) => {
   try {
     let moviesCache = await getMoviesCache()
     let seriesCache = await getSeriesCache()
-    let movies = null
-    let series = null
+    let movies, series
 
-    if (!moviesCache.length) {
-      movies = await axios.get('http://localhost:3001/api/movies')
-      client.set('movies', JSON.stringify(movies.data.data))
-    } else {
+    if (moviesCache) {
       movies = {
         data: moviesCache
       }
+    } else {
+      movies = await axios.get('http://localhost:3001/api/movies')
+      client.set('movies', JSON.stringify(movies.data.data))
     }
 
-    if (!seriesCache.length) {
-      series = await axios.get('http://localhost:3002/api/series')
-      client.set('series', JSON.stringify(series.data.data))
-    } else {
+    if (seriesCache) {
       series = {
         data: seriesCache
       }
+    } else {
+      series = await axios.get('http://localhost:3002/api/series')
+      client.set('series', JSON.stringify(series.data.data))
     }
 
     res.status(200).send({

@@ -7,7 +7,7 @@ const getMoviesCache = () => {
       if (response) {
         resolve(JSON.parse(response))
       } else {
-        resolve([])
+        resolve()
       }
     })
   })
@@ -20,7 +20,7 @@ const getSeriesCache = () => {
         console.log('GET SERIES CACHE', response)
         resolve(JSON.parse(response))
       } else {
-        resolve([])
+        resolve()
       }
     })
   })
