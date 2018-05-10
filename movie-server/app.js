@@ -21,5 +21,5 @@ app.get('/', (req, res) => res.send('Movies server'))
 app.use('/api/movies', moviesRouter)
 
 app.listen(port, function() {
- console.log('Listening on port', port)
+ console.log('Movies-server is running on port', port)
 })

@@ -21,5 +21,5 @@ app.get('/', (req, res) => res.send('Series server'))
 app.use('/api/series', seriesRouter)
 
 app.listen(port, function() {
- console.log('Listening on port', port)
+ console.log('Series-server is running on port', port)
 })
