@@ -33,7 +33,34 @@ const getCacheTVSeries = (req, res, next) => {
     }
   })
 }
+
+const getAllCache = (req, res, next) => {
+  checkCache('tvseries', (err, series) => {
+    if (err) {
+      res.status(500).json({
+        message:err.message
+      })
+    } else {
+      series ?
+      checkCache('movies', (err, movies) => {
+        if (err) {
+          res.status(500).json({
+            message:err.message
+          })
+        } else {
+          movies ?
+          res.status(200).json({
+            message: 'get data movies and series success',
+            movies: JSON.parse(movies),
+            series: JSON.parse(series)
+          }) : next()
+        }
+      }) : next()
+    }
+  })
+}
 module.exports = {
   getCacheMovies,
-  getCacheTVSeries
+  getCacheTVSeries,
+  getAllCache
 }
