@@ -17,7 +17,6 @@ const getSeriesCache = () => {
   return new Promise((resolve, reject) => {
     client.get('series', (err, response) => {
       if (response) {
-        console.log('GET SERIES CACHE', response)
         resolve(JSON.parse(response))
       } else {
         resolve()

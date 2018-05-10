@@ -1,4 +1,5 @@
 const Series = require('../models/Series')
+const refreshCache = require('../helpers/refreshCache')
 
 module.exports = {
   findAll: (req, res) => {
@@ -46,6 +47,7 @@ module.exports = {
           _id: req.params.id
         })
           .then(response => {
+            refreshCache()
             res.status(201).send({
               message: 'Update data success',
               data: response
@@ -71,7 +73,8 @@ module.exports = {
       _id: req.params.id
     })
       .then(response => {
-        res.status(201).send({
+            refreshCache()
+            res.status(201).send({
           message: 'Delete data success',
           data: response
         })

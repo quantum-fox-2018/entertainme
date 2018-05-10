@@ -45,4 +45,11 @@ const getEntertainme = async (req, res) => {
   }
 }
 
-module.exports = getEntertainme
+const refreshCache = (req, res) => {
+  client.flushall()
+}
+
+module.exports = {
+  getEntertainme,
+  refreshCache
+} 
