@@ -3,10 +3,10 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
-const moviesRouter = require('./routes/movies');
+const tvRouter = require('./routes/tvSeries');
 const tagRouter = require('./routes/tag');
 
 const app = express();
@@ -22,10 +22,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/movie', moviesRouter);
+app.use('/tv', tvRouter);
 app.use('/tag', tagRouter);
 
-// mongoose connection
+// Mongoose Connection
 mongoose.connection.openUri('mongodb://localhost/entertainme', (err) => {
   err? console.log('Oops! something went wrong') : console.log('connected to mongoose')
 })

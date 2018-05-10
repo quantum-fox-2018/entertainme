@@ -1,13 +1,13 @@
-const Movie = require('../models/movies.model')
+const Tv = require('../models/tv.model')
 
 module.exports = {
-  getAllMovies: async (req, res) => {
+  getAllTvSeries: async (req, res) => {
     try {
-      let movies = await Movie.find()
+      let tvSeries = await Tv.find().populate('tag')
       res.send({
-        message: 'get All Movie Success',
+        message: 'get All Tv Series Success',
         status: 200,
-        data: movies
+        data: tvSeries
       })
     } catch (error) {
       console.log(error)
@@ -16,20 +16,19 @@ module.exports = {
       })
     }
   },
-  addMovie: async (req, res) => {
+  addTvSeries: async (req, res) => {
     try {
-      let newMovie = await Movie.create({
+      let newTvSeries = await Tv.create({
         title: req.body.title,
         overview: req.body.overview,
         poster_path: req.body.poster_path,
-        popularity: req.body.popularity,
-        tag: req.body.tag
+        popularity: req.body.popularity
       })
-      console.log('New Movie', newMovie)
+      console.log('New Tv Series', newTvSeries)
       res.send({
-        message: 'New Movie have been added',
+        message: 'New Tv Series have been added',
         status: 200,
-        data: newMovie
+        data: newTvSeries
       })
     } catch (error) {
       console.log(error)
@@ -38,17 +37,17 @@ module.exports = {
       })
     }
   },
-  addMovieTag: async (req, res) => {
+  addTvSeriesTag: async (req, res) => {
     try {
-      let movieId = re.params.id
-      let addedMovieTag = await Movie.update(
-        {_id: movieId},
+      let tvSeriesId = req.params.id
+      let addedTvSeriesTag = await Tv.update(
+        {_id: tvSeriesId},
         {$addToSet: {tag: req.body.tag}}
       )
       res.send({
-        message: `Tag has been added to Movie`,
+        message: `Tag has been added to Tv Series`,
         status: 200,
-        addedMovieTag
+        addedTvSeriesTag
       })
     } catch (error) {
       console.log(error)
@@ -57,11 +56,11 @@ module.exports = {
       })
     }
   },
-  updateMovie: async (req, res) => {
+  updateTvSeries: async (req, res) => {
     try {
-      let movieId = req.params.id
-      let updatedMovie = await Movie.update(
-        {_id: movieId},
+      let tvSeriesId = req.params.id
+      let updatedTvSeries = await Tv.update(
+        {_id: tvSeriesId},
         {
           $set: {
             title: req.body.title,
@@ -72,11 +71,11 @@ module.exports = {
         }
       )
 
-      console.log('Update movie ===>', updatedMovie)
+      console.log('Update Tv Series ===>', updatedTvSeries)
       res.send({
-        message: `Movie with id ${movieId} Succesfully updated`,
+        message: `Tv Series with id ${tvSeriesId} Succesfully updated`,
         status: 200,
-        updatedMovie
+        updatedTvSeries
       })
     } catch (error) {
       console.log(error)
@@ -85,14 +84,14 @@ module.exports = {
       })
     }
   },
-  deleteMovie: async (req, res) => {
+  deleteTvSeries: async (req, res) => {
     try {
-      let movieId = req.params.id
-      let deletedMovie = await Movie.remove({_id: movieId})
+      let tvSeriesId = req.params.id
+      let deletedtvSeries = await Tv.remove({_id: tvSeriesId})
       res.send({
-        message: `Movie with id ${movieId} Succesfully deleted`,
+        message: `Tv Series with id ${tvSeriesId} Succesfully deleted`,
         status: 200,
-        deletedMovie
+        deletedtvSeries
       })
     } catch (error) {
       console.log(error)
