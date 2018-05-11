@@ -31,7 +31,7 @@ module.exports = {
       res.send({
         message: 'get All Entertainment Succes',
         movies: movies,
-        series: movies
+        series: series
       })
 
     } catch (error) {
