@@ -9,7 +9,8 @@ var indexRouter = require('./routes/index');
 var tvseriesRouter = require('./routes/tvseries');
 
 var app = express();
-mongoose.connect('mongodb://localhost:27017/p3tvseries')
+// mongoose.connect('mongodb://localhost:27017/p3tvseries')
+mongoose.connect('mongodb://redistvseries:redis123@ds125255.mlab.com:25255/redistvseries')
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
