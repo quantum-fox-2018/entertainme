@@ -3,7 +3,7 @@ const Movie = require('../models/movies.model')
 module.exports = {
   getAllMovies: async (req, res) => {
     try {
-      let movies = await Movie.find()
+      let movies = await Movie.find().populate('tag')
       res.send({
         message: 'get All Movie Success',
         status: 200,
@@ -12,7 +12,8 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.send({
-        message: 'Something went wrong'
+        message: 'Something went wrong',
+        status: 500
       })
     }
   },
@@ -34,7 +35,8 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.send({
-        message: 'Something went wrong'
+        message: 'Something went wrong',
+        status: 500
       })
     }
   },
@@ -53,7 +55,8 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.send({
-        message: 'Something went wrong'
+        message: 'Something went wrong',
+        status: 500
       })
     }
   },
@@ -81,7 +84,8 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.send({
-        message: 'Something went wrong'
+        message: 'Something went wrong',
+        status: 500
       })
     }
   },
@@ -97,7 +101,8 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.send({
-        message: 'Something went wrong'
+        message: 'Something went wrong',
+        status: 500
       })
     }
   }

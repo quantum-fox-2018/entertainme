@@ -57,11 +57,66 @@ module.exports = {
       })
     }
   },
+  updateMovie: async (req, res) => {
+    try {
+      let movieId = req.params.id
+      let updatedMovie = await axios.put(`http://localhost:3001/movie/${movieId}`, req.body)
+      console.log('Movie ID ==>', movieId)
+      console.log(updatedMovie)
+      res.send(updatedMovie.data)
+    } catch (error) {
+      console.log(error)
+      res.send({
+        message: 'Something went wrong',
+        status: 500
+      })
+    }
+  },
+  deleteMovie: async (req, res) => {
+    try {
+      let movieId = req.params.id
+      let deletedMovie = await axios.delete(`http://localhost:3001/movie/${movieId}`)
+      res.send(deletedMovie.data)
+    } catch (error) {
+      console.log(error)
+      res.send({
+        message: 'Something went wrong',
+        status: 500
+      })
+    }
+  },
   /*================ Tv Series ================= */
   addNewSeries: async (req, res) => {
     try {
       let newSeries = await axios.post('http://localhost:3002/tv', req.body)
       res.send(newSeries.data)
+    } catch (error) {
+      console.log(error)
+      res.send({
+        message: 'Something went wrong',
+        status: 500
+      })
+    }
+  },
+  updateSeries: async (req, res) => {
+    try {
+      let tvSeriesId = req.params.id
+      let updatedSeries = await axios.put(`http://localhost:3002/tv/${tvSeriesId}`, req.body)
+      console.log(updatedSeries)
+      res.send(updatedSeries.data)
+    } catch (error) {
+      console.log(error)
+      res.send({
+        message: 'Something went wrong',
+        status: 500
+      })
+    }
+  },
+  deleteSeries: async (req, res) => {
+    try {
+      let tvSeriesId = req.params.id
+      let deletedSeries = await axios.delete(`http://localhost:3002/tv/${tvSeriesId}`)
+      res.send(deletedSeries.data)
     } catch (error) {
       console.log(error)
       res.send({

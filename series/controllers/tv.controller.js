@@ -12,7 +12,8 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.send({
-        message: 'Something went wrong'
+        message: 'Something went wrong',
+        status: 500
       })
     }
   },
@@ -52,7 +53,8 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.send({
-        message: 'Something went wrong'
+        message: 'Something went wrong',
+        status: 500
       })
     }
   },
@@ -80,7 +82,8 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.send({
-        message: 'Something went wrong'
+        message: 'Something went wrong',
+        status: 500
       })
     }
   },
@@ -96,7 +99,8 @@ module.exports = {
     } catch (error) {
       console.log(error)
       res.send({
-        message: 'Something went wrong'
+        message: 'Something went wrong',
+        status: 500
       })
     }
   }
