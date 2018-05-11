@@ -4,13 +4,12 @@ const client = redis.createClient();
 const cache = (req, res, next) => {
   client.get('entertainme', (err, reply) => {
     if (err) {
-      console.log(err);
+      res.status(500).json(err)
     } else if (reply) {
       res.status(200).json({
-        message: 'cache found',
+        message: 'data from cache',
         data: JSON.parse(reply)
       })
-      console.log(reply)
     } else {
       console.log('cache not found');
       next()
