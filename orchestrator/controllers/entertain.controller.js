@@ -28,7 +28,6 @@ module.exports = {
         }
   
         client.set('entertainme', JSON.stringify(dataAll))
-  
         res.status(200).json({
           msg: 'success get all data',
           data: dataAll
