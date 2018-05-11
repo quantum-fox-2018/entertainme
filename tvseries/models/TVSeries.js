@@ -33,6 +33,6 @@ const tvSeriesSchema = new Schema({
   timestamps: true
 })
 
-let TVSeries = mongoose.model('tvseriues', tvSeriesSchema)
+let TVSeries = mongoose.model('tvseries', tvSeriesSchema)
 
 module.exports = TVSeries

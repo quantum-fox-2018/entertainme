@@ -65,8 +65,29 @@ const deleteMovie = async (req, res) => {
     })
   }
 }
+
+const editMovie = async (req, res) => {
+  try {
+    await axios.put('http://localhost:3001/movies/' + req.params.id)
+    checkCache('movies', (err, reply) => {
+      if (err) {
+        res.status(500).json({ message: err.message })
+      } else {
+        client.del('movies')
+        res.status(201).json({
+          message: 'edit data success'
+        })
+      }
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    })
+  }
+}
 module.exports = {
   getMovies,
   addMovie,
-  deleteMovie
+  deleteMovie,
+  editMovie
 }

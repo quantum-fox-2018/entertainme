@@ -41,21 +41,22 @@ const getAllCache = (req, res, next) => {
         message:err.message
       })
     } else {
-      series ?
+      req.series = JSON.parse(series)
       checkCache('movies', (err, movies) => {
         if (err) {
           res.status(500).json({
             message:err.message
           })
         } else {
-          movies ?
+          req.movies = JSON.parse(movies)
+          movies && series ?
           res.status(200).json({
             message: 'get data movies and series success',
             movies: JSON.parse(movies),
             series: JSON.parse(series)
           }) : next()
         }
-      }) : next()
+      })
     }
   })
 }

@@ -33,6 +33,15 @@ const movieSchema = new Schema({
   timestamps: true
 })
 
+movieSchema.pre('remove', function (next) {
+  this.model('tags').update(
+    {movies: this._id}, 
+    {$pull: {movies: this._id}}, 
+    {multi: true},
+    next,
+  )
+})
+
 let Movie = mongoose.model('movies', movieSchema)
 
 module.exports = Movie

@@ -80,8 +80,90 @@ const addTVSeries = async (req, res) => {
   }
 }
 
+const editTVSeries = async (req, res) => {
+  try {
+    let tvSeries = await TVSeries.findOne({_id: req.params.id})
+    try {
+      let tag = await Tag.findOne({title: req.body.tag})
+      if (tag === null) {
+        try {
+          let newTag = await Tag.create({
+            title: req.body.tag
+          })
+          await TVSeries.update({
+            title: req.body.title,
+            overview: req.body.overview,
+            poster_path: req.body.poster_path,
+            popularity: req.body.popularity,
+            status: req.body.status,
+            tags: [{
+              text: req.body.text,
+              $addToSet: {tag: newTag._id}
+            }],
+          })
+          res.send({
+            message: 'success edit tv series',
+            status: 201
+          })
+        } catch (error) {
+          res.status(500).json({
+            message: error.message
+          })
+        }
+      } else {
+        try {
+          await tvSeries.update({
+            title: req.body.title,
+            overview: req.body.overview,
+            poster_path: req.body.poster_path,
+            popularity: req.body.popularity,
+            status: req.body.status
+          })
+          res.send({
+            message: 'success edit tv series',
+            status: 201
+          })
+        } catch (error) {
+          res.status(500).json({
+            message: error.message
+          })
+        }
+      }
+    } catch (error) {
+      res.status(500).json({
+        message: error.message
+      })
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    })
+  }
+}
+
+const deleteTVSeries = async (req, res) => {
+  try {
+    let tvSeries = await TVSeries.findOne({_id: req.params.id})
+    try {
+      await tvSeries.remove()
+      res.status(200).json({
+        message: 'success delete data'
+      })
+    } catch (error) {
+      res.status(500).json({
+        message: error.message
+      })
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    })
+  }
+}
 module.exports = {
   getTVSeries,
-  addTVSeries
+  addTVSeries,
+  editTVSeries,
+  deleteTVSeries
 }
   
