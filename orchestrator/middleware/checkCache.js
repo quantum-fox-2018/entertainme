@@ -3,6 +3,7 @@ const client = redis.createClient()
 const { promisify } = require('util')
 const getAsync = promisify(client.get).bind(client)
 
+//general check cache method
 async function checkCache (req, res, next) {
   try {
     const moviesCache = await getAsync('movies_cache')
