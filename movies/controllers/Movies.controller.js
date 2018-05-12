@@ -16,6 +16,21 @@ const getAllMovies = async (req, res) => {
   }
 }
 
+const getMovieById = async (req, res) => {
+  try {
+    let movie = await Movie.findById(req.params.id).populate('tags')
+    res.status(200).json({
+      message: 'get movie by id succeed',
+      payload: movie
+    })
+  } catch (err) {
+    res.status(500).json({
+      message: 'fail getting movie by id',
+      err: err
+    })
+  }
+}
+
 const createMovie = async (req, res) => {
   try {
     let foundTag = await Tag.findOne({
@@ -85,8 +100,42 @@ const createMovie = async (req, res) => {
   }
 }
 
- 
+const updateMovie = async (req, res) => {
+  try {
+    let updatedMovie = await Movie.findByIdAndUpdate(req.params.id, {
+      $set: req.body
+    })
+    res.status(200).json({
+      message: 'update movie succeed',
+      payload: updatedMovie
+    })
+  } catch (err) {
+    res.status(500).json({
+      message: 'fail to update movie',
+      err: err
+    })
+  }
+}
+
+ const deleteMovie = async(req, res) => {
+    try {
+      let deletedMovie = await Movie.findByIdAndRemove(req.params.id)
+      res.status(200).json({
+        message: 'delete movie succeed',
+        payload: deletedMovie
+      })
+    } catch (err) {
+      res.status(500).json({
+        message: 'fail to delete movie',
+        err: err
+      })
+    }
+  }
+
 module.exports = {
   getAllMovies,
-  createMovie
+  getMovieById,
+  createMovie,
+  updateMovie,
+  deleteMovie
 }

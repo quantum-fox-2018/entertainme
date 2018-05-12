@@ -16,6 +16,21 @@ const getAllSeries = async (req, res) => {
   }
 }
 
+const getSeriById = async (req, res) => {
+    try {
+      let seri = await Seri.findById(req.params.id)
+      res.status(200).json({
+        message: 'get seri by id succeed',
+        payload: seri
+      })
+    } catch (err) {
+      res.status(500).json({
+        message: 'fail to get seri by id',
+        err: err
+      })
+    }
+}
+
 const createSeri = async (req, res) => {
   try {
     let foundTag = await Tag.findOne({
@@ -85,7 +100,42 @@ const createSeri = async (req, res) => {
   }
 }
 
+const updateSeri = async (req, res) => {
+  try {
+    let updatedSeri = await Seri.findByIdAndUpdate(req.params.id, {
+      $set: req.body
+    })
+    res.status(200).json({
+      message: 'update Seri succeed',
+      payload: updatedSeri
+    })
+  } catch (err) {
+    res.status(500).json({
+      message: 'fail to update Seri',
+      err: err
+    })
+  }
+}
+
+ const deleteSeri = async(req, res) => {
+    try {
+      let deletedSeri = await Seri.findByIdAndRemove(req.params.id)
+      res.status(200).json({
+        message: 'delete Seri succeed',
+        payload: deletedSeri
+      })
+    } catch (err) {
+      res.status(500).json({
+        message: 'fail to delete Seri',
+        err: err
+      })
+    }
+  }
+
 module.exports = {
   getAllSeries,
-  createSeri
+  getSeriById,
+  createSeri,
+  updateSeri,
+  deleteSeri
 }

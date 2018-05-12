@@ -4,20 +4,30 @@ const client = redis.createClient()
 
 const getAll = async (req, res) => {
   try {
-    let movies = await axios.get('http://localhost:3001/movies')
-    console.log('movies', movies.data.payload)
+    let movies = ''
+    let series = ''
 
-    let series = await axios.get('http://localhost:3002/series')
-    console.log('series', series.data.payload)
-    let data = {
-      movies: movies.data.payload,
-      series: series.data.payload
+    if (req.headers.moviesCache) {
+      movies = req.headers.moviesCache
+    } else {
+      movies = await axios.get('http://localhost:3001/movies')
+      movies = movies.data.payload
+      client.set('movie_cache', JSON.stringify(movies))
     }
-    client.set('data', JSON.stringify(data))
+
+    if (req.headers.seriesCache) {
+      series = req.headers.seriesCache
+    } else {
+      series = await axios.get('http://localhost:3002/series')
+      series = series.data.payload
+      client.set('seri_cache', JSON.stringify(series))
+
+    }
+  
     res.status(200).json({
       message: 'succeed',
-      movies: movies.data.payload,
-      series: series.data.payload
+      movies: movies,
+      series: series
     })
   } catch (err) {
     res.status(500).json({
