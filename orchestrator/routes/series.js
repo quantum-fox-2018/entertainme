@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var ctSeri = require('../controllers/Series.controller')
-var checkCache = require('../middleware/checkCache')
+var {
+  checkMoviesCache,
+  checkSeriesCache
+} = require('../middleware/checkCache')
 
-router.get('/', checkCache, ctSeri.getAllSeries)
+router.get('/', checkSeriesCache, ctSeri.getAllSeries)
 router.get('/:id', ctSeri.getSeriById)
 router.post('/', ctSeri.createSeri)
 router.put('/:id', ctSeri.updateSeri)
