@@ -8,6 +8,6 @@ const TVSeriesSchema = mongoose.Schema({
   status: Boolean
 })
 
-const TVSerie = mongoose.model('TVSerie', TVSerieSchema);
+const series = mongoose.model('series', TVSeriesSchema);
 
-module.exports = TVSeries;
+module.exports = series;
