@@ -6,7 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+const moviesRouter = require('./routes/movies')
+const mongoose = require('mongoose')
 var app = express();
 
 // view engine setup
@@ -19,7 +20,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+mongoose.connect('mongodb://localhost/movies_db', (error) => {
+  error ? console.log('error connecting to db') : console.log('connected to db');
+});
+
 app.use('/', indexRouter);
+app.use('/movies', moviesRouter)
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
