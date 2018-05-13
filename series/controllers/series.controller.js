@@ -4,12 +4,12 @@ const read = async (req, res) => {
   try {
     const series = await series.find().populate('tag');
     res.status(200).json({
-      info: 'tv series found successfully',
+      message: 'series found successfully',
       data: series
     });
   } catch (error) {
     res.status(500).json({
-      info: 'error occured while getting data'
+      message: 'something went wrong'
     });
   }
 }
@@ -25,12 +25,12 @@ const create = async (req, res) => {
       status: req.body.status
     });
     res.status(200).json({
-      info: 'tv serie added successfully',
+      message: 'serie added successfully',
       data: create
     });
   } catch (error) {
     res.status(500).json({
-      info: 'error occured while adding data'
+      message: 'something went wrong'
     });
   }
 }
@@ -51,11 +51,11 @@ const update = async(req, res) => {
     });
     res
       .status(200)
-      .json({info: 'tv serie update successfully', data: update});
+      .json({message: 'serie update successfully', data: update});
   } catch (error) {
     res
       .status(500)
-      .json({info: 'error occured while updating data'});
+      .json({message: 'something went wrong'});
   }
 }
 
@@ -64,11 +64,11 @@ const deletes = async(req, res) => {
     const deletes = await series.deleteOne({_id: req.params._id});
     res
       .status(200)
-      .json({info: 'tv serie delete successfully', data: deletes});
+      .json({message: 'serie delete successfully', data: deletes});
   } catch (error) {
     res
       .status(500)
-      .json({info: 'error occured while deleting data'});
+      .json({message: 'someting went wrong'});
   }
 }
 

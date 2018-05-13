@@ -3,11 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors')
 
 var indexRouter = require('./routes/index');
-const moviesRouter = require('./routes/movies')
-const tagsRouter = require('./routes/tags')
-const mongoose = require('mongoose')
+var usersRouter = require('./routes/users');
+const orchestrator = require('./routes/orchestrator')
+const movies = require('./routes/movies')
+const series = require('./routes/series')
+
 var app = express();
 
 // view engine setup
@@ -20,13 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect('mongodb://localhost/movies_db', (error) => {
-  error ? console.log('error connecting to db') : console.log('connected to db');
-});
-
 app.use('/', indexRouter);
-app.use('/movies', moviesRouter)
-app.use('/tags', tagsRouter)
+app.use('/users', usersRouter);
+app.use('/orchestrator', orchestrator)
+app.use('/movies', movies)
+app.use('/series', series)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
