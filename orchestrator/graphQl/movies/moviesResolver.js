@@ -45,8 +45,8 @@ const moviesResolver = {
     deleteMovie: async(_, {_id}) => {
       try {
         const deletedMovie = await axios.delete('http://localhost:3001/movie/'+_id)
-        console.log(deletedMovie)
-        return deletedMovie
+        console.log(deletedMovie.data)
+        return deletedMovie.data
       } catch (error) {
         console.log('Post Error ===>', error)
       }
