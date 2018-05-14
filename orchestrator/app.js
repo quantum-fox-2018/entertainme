@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 const bodyParser = require('body-parser');
+var cors = require('cors')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -17,8 +18,8 @@ const schema = require('./graphql/index')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(cors())
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-
 // GraphiQL, a visual editor for queries
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 app.use(logger('dev'));

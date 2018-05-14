@@ -1,6 +1,7 @@
 # entertainme
 ##testing query
-```query moviesid($id: String) {
+```
+query moviesid($id: String) {
   movieById(_id: $id) {
     title
     overview
