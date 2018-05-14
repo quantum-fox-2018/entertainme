@@ -36,6 +36,20 @@ module.exports = {
       })
     }
   },
+  readOne: async (req, res) => {
+    try {
+      let movie = await Movies.findById(req.params._id)
+      res.status(200).json({
+        message: 'data movie',
+        data: movie
+      })
+    } catch (error) {
+      res.status(500).json({
+        message: 'Oops, something is wrong!',
+        error
+      })
+    }
+  },
   update: async (req, res) => {
     try {
       let movie = await Movies.findOneAndUpdate({_id: req.params._id}, {$set: req.body}, {upsert: true})

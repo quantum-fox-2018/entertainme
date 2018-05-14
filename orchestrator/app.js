@@ -4,13 +4,17 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const redis = require('redis');
 const client = redis.createClient();
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const schema = require('./graphql/index');
 
 const index = require('./routes/index');
 const entertainme = require('./routes/entertainme');
 
 const app = express();
+
 
 client.on('ready', error => {
   if(error){
@@ -26,6 +30,7 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,6 +39,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/entertainme', entertainme);
+app.use('/graphql', bodyParser.json(), graphqlExpress({schema}));
+app.use('/graphiql', graphiqlExpress({endpointURL: '/graphql'}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
