@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { getEntertainme, refreshCache } = require('../controllers')
 
-router.get('/entertainme', getEntertainme)
-      .post('/entertainme/refresh-cache', refreshCache)
+router.get('/', getEntertainme)
+router.post('/refresh-cache', refreshCache)
 
 module.exports = router

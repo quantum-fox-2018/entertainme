@@ -18,6 +18,24 @@ module.exports = {
       })
   },
 
+  findOne: (req, res) => {
+    Movie.findById({
+      _id: req.params.id
+    })
+      .then(response => {
+        res.status(200).send({
+          message: 'Get data success',
+          data: response
+        })
+      })
+      .catch(err => {
+        res.status(400).send({
+          message: 'Get data failed',
+          detail: err.message
+        })
+      })
+  },
+
   create: (req, res) => {
     let newMovie = new Movie(req.body)
 
