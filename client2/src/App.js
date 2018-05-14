@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-
 
 class App extends Component {
   render() {
@@ -14,34 +14,32 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div>
-          <h1>Movies List!</h1>
-        </div>
-      <Query
+        <Query
         query={gql`
         {
           movies {
-            _id
             title
             overview
-		        poster_path
-		        popularity
-		        status
-          } 
+          }
         }
         `}
-      >
-      {({loading, error, data}) => {
-        // console.log("====",data)
-        if(loading) return <h2>Loading data...</h2>;
-        if(error) return <h2>something wrong!!!</h2>;
-        return data.movies.map(({_id, title, overview})=>(
-          <div key={_id}>
-            <p>{title}</p>
-            <p>{overview}</p>
-          </div>
-        ));
-      }}
-      </Query>
+        >
+          {({ loading, error, data }) => {
+            console.log(data)
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error :(</p>;
+      
+            return data.movies.map(({ title, poster_path, overview, popularity, _id }) => (
+              <div key={_id}>
+                <p>{ title }</p>
+                <p>{ overview }</p>
+                <p>{ poster_path }</p>
+                <p>{ popularity }</p>
+              </div>
+            ));
+          }}
+</Query>
+        </div>
       </div>
     );
   }
