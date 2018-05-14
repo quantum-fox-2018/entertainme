@@ -15,6 +15,20 @@ module.exports = {
       })
     }
   },
+  findById: async (req, res) => {
+    try {
+      let data = await Movie.findById(req.params.id).populate('tags')
+      return res.status(200).json({
+        message: 'get one movies success',
+        data
+      })
+    } catch (err) {
+      return res.status(500).json({
+        message: 'get one movies failed',
+        err
+      })
+    }
+  },
   create: async (req, res) => {
     try {
       let { title, overview, poster_path, popularity, tags } = req.body
