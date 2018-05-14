@@ -12,10 +12,18 @@ module.exports = {
     },
     movieById: async (_, {_id}) => {
       try {
-        let movies = await axios.get(`http://localhost:3001/movies/${_id}`)
-        if (movies) {
-          return movies.data.data
-        }
+        let movie = await axios.get(`http://localhost:3001/movies/${_id}`)  
+        return movie.data.data
+      } catch (error) {
+        return error
+      }
+    }
+  },
+  Mutation: {
+    addMovie: async (_, data) => {
+      try {
+        let movie = await axios.post(`http://localhost:3001/movies`, data)
+        return movie.data.data    
       } catch (error) {
         return error
       }
