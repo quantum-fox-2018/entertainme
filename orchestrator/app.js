@@ -1,9 +1,11 @@
 var createError = require('http-errors');
 var express = require('express');
+const bodyParser = require('body-parser');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
 var indexRouter = require('./routes/index');
 var entertainme = require('./routes/entertainme');
 
@@ -11,11 +13,14 @@ var redis = require('redis')
 var client = redis.createClient()
 
 var app = express();
-
+const schema = require('./graphql/index')
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 
+// GraphiQL, a visual editor for queries
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

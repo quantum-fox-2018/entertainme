@@ -25,6 +25,20 @@ module.exports = {
       }
     }
   },
+  moviebyid: async (req, res) => {
+     try {
+       let movie = await Movie.findById(req.params.id)
+       res.status(200).json({
+         message: 'movie fetcheddd',
+         movie: movie
+       })
+     } catch (err) {
+       res.status(500).json({
+         message: 'unable to fetch movies',
+         err
+       })
+     }
+   },
   addMovie: async(req, res) => {
     try {
       let addMovie = await Movie.create({
