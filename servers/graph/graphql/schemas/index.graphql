@@ -1,0 +1,27 @@
+type Movie {
+  _id: String,
+  title: String,
+  overview: String,
+  poster_path: String,
+  popularity: Int,
+  tag: [Tag]
+}
+
+type Serie {
+  _id: String,
+  title: String,
+  overview: String,
+  poster_path: String,
+  popularity: Int,
+  tag: [Tag] 
+}
+
+type Tag {
+  _id: String,
+  text: String
+}
+
+type Orchestrator {
+  movies: [Movie],
+  series: [Serie]
+}

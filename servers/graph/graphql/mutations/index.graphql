@@ -1,0 +1,39 @@
+type Mutation {
+  createMovie (
+    title: String,
+    overview: String,
+    poster_path: String,
+    popularity: Int,
+    tag: [String]
+  ) : Movie,
+
+  updateMovie (
+    _id: String,
+    title: String,
+    overview: String,
+    poster_path: String,
+    popularity: Int,
+    tag: [String]  
+  ) : Movie,
+
+  deleteMovie (_id: String) : String,
+
+  createSerie (
+    title: String,
+    overview: String,
+    poster_path: String,
+    popularity: Int,
+    tag: [String]  
+  ) : Serie,
+
+  updateSerie (
+    _id: String,
+    title: String,
+    overview: String,
+    poster_path: String,
+    popularity: Int,
+    tag: [String]  
+  ) : Serie,
+
+  deleteSerie (_id: String) : String
+}

@@ -1,0 +1,16 @@
+.restaurant {
+  padding: 1rem 2rem 2rem;
+  margin: 1rem;
+  border-radius: 0.5rem;
+  min-width: 9rem;
+  border: solid 1px rgba(0, 0, 0, 0.05);
+}
+.restaurant p {
+  color: rgba(0, 0, 0, 0.75);
+}
+.restaurant-name {
+  font-size: 1.25rem;
+}
+.image {
+padding: 20px
+}
