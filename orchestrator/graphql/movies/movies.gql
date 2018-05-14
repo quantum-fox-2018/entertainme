@@ -1,0 +1,10 @@
+type Movie {
+  title: String
+  overview: String
+  poster_path: String
+  popularity: Int
+}
+
+type Query {
+  movies: [Movie]
+}

@@ -21,7 +21,6 @@ const getCacheMovies = (req, res, next) => {
 }
 
 const getCacheTVSeries = (req, res, next) => {
-  console.log('masuk get cache tv series')
   client.get('tvseries', (err, reply) => {
     if (err) {
       res.status(500).json({
