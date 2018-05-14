@@ -10,3 +10,7 @@ type Query {
   movies: [Movie]
   movie(_id: String): Movie
 }
+
+type Mutation {
+  newMovie(title: String, overview: String): Movie
+}

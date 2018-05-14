@@ -18,6 +18,19 @@ const movieResolvers = {
         console.log(error)
       }
     }
+  },
+  Mutation: {
+    newMovie: async (_, {title, overview}) => {
+      try {
+        let newMovie = await axios.post('http://localhost:3000/movies/', {
+          title,
+          overview
+        }, {})
+        return newMovie.data.data
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 }
 
