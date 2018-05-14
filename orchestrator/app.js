@@ -1,19 +1,20 @@
 var createError = require('http-errors');
 var express = require('express');
+// var bodyParser = require('body-parser')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const bodyParser = require('body-parser')
+const cors = require ('cors')
 const redis = require('redis')
 const client = redis.createClient()
 const {graphqlExpress, graphiqlExpress} = require('apollo-server-express')
-const schema = require('./graphql/movie/schema')
 
 var indexRouter = require('./routes/index');
 var entertainRouter = require('./routes/entertainme');
+const schema = require('./graphql/movie/schema')
 
 var app = express();
-
+app.use(cors)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -27,13 +28,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/entertainme', entertainRouter);
 
-app.use('/graphql', bodyParser.json(), graphqlExpress({schema}))
+app.use('/graphql', graphqlExpress({schema}))
 app.use('/graphiql', graphiqlExpress({endpointURL: '/graphql'}))
 
 
-// client.on('ready', () => {
-//   console.log('====redis start====')
-// })
+client.on('ready', () => {
+  console.log('====redis start====')
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
