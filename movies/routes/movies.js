@@ -3,11 +3,12 @@ const router = express.Router()
 const {
   getAllMovies, addMovie, 
   updateMovie, deleteMovie,
-  addMovieTag
+  addMovieTag, getMovieById
 } = require('../controllers/movies.controller.js')
 
 /* GET users listing. */
 router.get('/', getAllMovies)
+      .get('/:id', getMovieById)
       .post('/', addMovie)
       .put('/:id', updateMovie)
       .put('/:id/AddTag', addMovieTag)

@@ -17,6 +17,22 @@ module.exports = {
       })
     }
   },
+  getMovieById: async (req, res) => {
+    try {
+      let movies = await Movie.findById(req.params.id).populate('tag')
+      res.send({
+        message: 'get One Movie Success',
+        status: 200,
+        data: movies
+      })
+    } catch (error) {
+      console.log(error)
+      res.send({
+        message: 'Something went wrong',
+        status: 500
+      })
+    }
+  },
   addMovie: async (req, res) => {
     try {
       let newMovie = await Movie.create({
@@ -74,12 +90,14 @@ module.exports = {
           }
         }
       )
-
-      console.log('Update movie ===>', updatedMovie)
+      if (updatedMovie.ok === 1 && updatedMovie.nModified === 1) {
+        updatedMovie = await Movie.findById(movieId).populate('tag')
+      }
+      // console.log('Update movie ===>', updatedMovie)
       res.send({
         message: `Movie with id ${movieId} Succesfully updated`,
         status: 200,
-        updatedMovie
+        data: updatedMovie
       })
     } catch (error) {
       console.log(error)

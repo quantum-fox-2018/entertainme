@@ -17,6 +17,22 @@ module.exports = {
       })
     }
   },
+  getTvSeriesById: async (req, res) => {
+    try {
+      let tvSeries = await Tv.find(req.params.id).populate('tag')
+      res.send({
+        message: 'get One Tv Series Success',
+        status: 200,
+        data: tvSeries
+      })
+    } catch (error) {
+      console.log(error)
+      res.send({
+        message: 'Something went wrong',
+        status: 500
+      })
+    }
+  },
   addTvSeries: async (req, res) => {
     try {
       let newTvSeries = await Tv.create({
@@ -72,8 +88,10 @@ module.exports = {
           }
         }
       )
-
-      console.log('Update Tv Series ===>', updatedTvSeries)
+      if (updatedTvSeries.ok === 1 && updatedTvSeries.nModified === 1) {
+        updatedTvSeries = await Tv.findById(tvSeriesId).populate('tag')
+      }
+      // console.log('Update Tv Series ===>', updatedTvSeries)
       res.send({
         message: `Tv Series with id ${tvSeriesId} Succesfully updated`,
         status: 200,
