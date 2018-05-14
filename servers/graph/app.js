@@ -4,12 +4,35 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const mongoose = require('mongoose');
+const fs = require('fs');
+const queries = fs.readFileSync('./graphql/queries/index.graphql', 'UTF-8');
+const mutations = fs.readFileSync('./graphql/mutations/index.graphql', 'UTF-8');
+const schemas = fs.readFileSync('./graphql/schemas/index.graphql', 'UTF-8');
+const cors = require('cors')
+// console.log(queries)
+// console.log(mutations)
+// console.log(schemas)
+
+const entertainmeResolvers = require ('./graphql/resolvers/index');
+
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
+
+const typeDefs = schemas + queries + mutations;
+const resolvers = entertainmeResolvers
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
 // view engine setup
+app.use(cors())
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -21,6 +44,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/graphql', express.json(), graphqlExpress({ schema }));
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+
+mongoose.connect('mongodb://localhost/movies_db', (error) => {
+  error ? console.log('error connecting to db') : console.log('connected to db');
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

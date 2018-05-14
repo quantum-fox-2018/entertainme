@@ -9,7 +9,7 @@ const {
 } = require('../controllers/movies.controller');
 
 router.get('/', read)
-router.post('/',create)
+router.post('/', create)
 router.put('/:id',update)
 router.delete('/:id',deletes)
 

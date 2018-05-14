@@ -1,22 +1,23 @@
-const series = require('../models/series.model');
+const Serie = require('../models/series.model');
 
 const read = async (req, res) => {
   try {
-    const series = await series.find().populate('tag');
+    const series = await Serie.find().populate('tag');
     res.status(200).json({
       message: 'series found successfully',
       data: series
     });
   } catch (error) {
     res.status(500).json({
-      message: 'something went wrong'
+      message: 'something went wrong',
+      error: error.message
     });
   }
 }
 
 const create = async (req, res) => {
   try {
-    const create = await series.create({
+    const create = await Serie.create({
       title: req.body.title,
       overview: req.body.overview,
       poster_path: req.body.poster_path,
@@ -37,7 +38,7 @@ const create = async (req, res) => {
 
 const update = async(req, res) => {
   try {
-    const update = await series.updateOne({
+    const update = await Serie.updateOne({
       _id: req.params._id
     }, {
       $set: {
@@ -61,7 +62,7 @@ const update = async(req, res) => {
 
 const deletes = async(req, res) => {
   try {
-    const deletes = await series.deleteOne({_id: req.params._id});
+    const deletes = await Serie.deleteOne({_id: req.params._id});
     res
       .status(200)
       .json({message: 'serie delete successfully', data: deletes});

@@ -10,7 +10,7 @@ const {
 
 router.get('/', read)
 router.post('/',create)
-router.put('/Lid',update)
+router.put('/:id',update)
 router.delete('/:id',deletes)
 
 module.exports = router;

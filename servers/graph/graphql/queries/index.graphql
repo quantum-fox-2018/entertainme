@@ -1,0 +1,7 @@
+type Query { 
+  movies: [Movie]
+  movie(id : String) : Movie
+  series: [Serie]
+  serie(id: String): Serie
+  getAll: Orchestrator
+}

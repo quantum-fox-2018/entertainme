@@ -1,4 +1,4 @@
-const Movie = require('../models/movie.model');
+const Movie = require('../models/movies.model');
 
 const read = async (req, res) => {
   try {
@@ -15,13 +15,14 @@ const read = async (req, res) => {
 }
 
 const create = async (req, res) => {
+  // console.log('masuk boss')
   try {
     const create = await Movie.create({
       title: req.body.title,
       overview: req.body.overview,
       poster_path: req.body.poster_path,
       popularity: req.body.popularity,
-      tag: req.body.tag,
+      tag: [],
       status: req.body.status
     });
     res.status(200).json({
