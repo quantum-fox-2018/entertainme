@@ -18,7 +18,8 @@ const typeDefs = `
       poster_path: String,
       popularity: String,
       status: String
-    ): Movie
+    ): Movie,
+    delMovie(_id: String): Movie
   }
 `;
 

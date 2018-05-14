@@ -27,6 +27,14 @@ module.exports = {
       } catch (error) {
         return error
       }
+    },
+    delMovie: async (_, {_id}) => {
+      try {
+        let movie = await axios.delete(`http://localhost:3001/movies/${_id}`)
+        return {message: 'Delete success!'}
+      } catch (error) {
+        return error
+      }
     }
   }
 } 
