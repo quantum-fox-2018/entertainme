@@ -1,0 +1,33 @@
+type Movie {
+  title: {
+    type: String
+  },
+  overview: {
+    type: String
+  },
+  poster_path: {
+    type: String
+  },
+  overview: {
+    type: String
+  },
+  popularity: {
+    type: Number
+  },
+  status: {
+    type: String
+  },
+  tags: [{
+      text: {
+        type: String
+      },
+      tag: {
+        type: Schema.Types.ObjectId,
+        ref: "tags"
+      }
+    }]
+}
+
+type Query {
+  movies: [Movie]
+}
