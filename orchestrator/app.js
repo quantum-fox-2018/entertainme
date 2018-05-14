@@ -3,8 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser')
 const redis = require('redis')
 const client = redis.createClient()
+const {graphqlExpress, graphiqlExpress} = require('apollo-server-express')
+const schema = require('./graphql/movie/schema')
 
 var indexRouter = require('./routes/index');
 var entertainRouter = require('./routes/entertainme');
@@ -24,9 +27,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/entertainme', entertainRouter);
 
-client.on('ready', () => {
-  console.log('====redis start====')
-})
+app.use('/graphql', bodyParser.json(), graphqlExpress({schema}))
+app.use('/graphiql', graphiqlExpress({endpointURL: '/graphql'}))
+
+
+// client.on('ready', () => {
+//   console.log('====redis start====')
+// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

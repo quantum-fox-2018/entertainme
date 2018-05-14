@@ -64,5 +64,19 @@ module.exports = {
         error
       })
     }
+  },
+  getMovieById: async (req, res) => {
+    try {
+      let data = await Movies.findById(req.params.id)
+      res.status(200).json({
+        message: 'success get data',
+        data
+      })
+    } catch (error) {
+      res.status(400).json({
+        message: 'failed update movie',
+        error
+      })
+    }
   }
 }
