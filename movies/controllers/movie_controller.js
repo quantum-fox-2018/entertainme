@@ -15,6 +15,19 @@ const getMovies = async (req, res) => {
   }
 }
 
+const getMovieById = async (req, res) => {
+  try {
+    let movies = await Movie.findOne({_id: req.params.id})
+    res.status(200).json({
+      message: 'success get data movies',
+      data: movies
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: err.message
+    })
+  }
+}
 const addMovie = async (req, res) => {
   try {
     let tag = await Tag.find({title: req.body.tag})
@@ -214,5 +227,6 @@ module.exports = {
   getMovies,
   addMovie,
   editMovie,
-  deleteMovie
+  deleteMovie,
+  getMovieById
 }

@@ -17,6 +17,20 @@ const getMovies = async (req, res) => {
   }
 }
 
+const getMovieById = async (req, res) => {
+  try {
+    let movies = await axios.get('http://localhost:3001/movies/' + req.params.id)
+    res.status(200).json({
+      data: movies.data
+    })
+  } catch (err) {
+    res.status(500).json({
+      message: err.message
+    })
+  }
+}
+
+
 const addMovie = async (req, res) => {
   try {
     let newMovie = await axios.post('http://localhost:3001/movies', {
@@ -89,5 +103,6 @@ module.exports = {
   getMovies,
   addMovie,
   deleteMovie,
-  editMovie
+  editMovie,
+  getMovieById
 }

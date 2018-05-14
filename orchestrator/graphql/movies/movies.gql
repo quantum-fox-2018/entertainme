@@ -1,33 +1,12 @@
 type Movie {
-  title: {
-    type: String
-  },
-  overview: {
-    type: String
-  },
-  poster_path: {
-    type: String
-  },
-  overview: {
-    type: String
-  },
-  popularity: {
-    type: Number
-  },
-  status: {
-    type: String
-  },
-  tags: [{
-      text: {
-        type: String
-      },
-      tag: {
-        type: Schema.Types.ObjectId,
-        ref: "tags"
-      }
-    }]
+  title: String
+  poster_path: String
+  overview: String
+  popularity: Int
+  status: String
 }
 
 type Query {
   movies: [Movie]
+  movie(_id: String): Movie
 }

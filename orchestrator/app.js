@@ -13,12 +13,11 @@ const createError = require('http-errors'),
       dataRouter = require('./routes/data'),
       app = express(),
       typeDefsMovies = fs.readFileSync('./graphql/movies/movies.gql', 'utf8'),
-      moviesResolvers = require('./graphql/movies/moviesResolvers'),
+      movieResolvers = require('./graphql/movies/moviesResolvers'),
       moviesSchema = makeExecutableSchema({
         typeDefs: typeDefsMovies,
-        resolvers: moviesResolvers
+        resolvers: movieResolvers,
       })
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,7 +34,7 @@ app.use('/users', usersRouter);
 app.use('/movies', moviesRouter)
 app.use('/tvseries', tvSeriesRouter)
 app.use('/data', dataRouter)
-app.use('/graphql', graphqlExpress({ moviesSchema }))
+app.use('/graphql', graphqlExpress({ schema: moviesSchema }))
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // catch 404 and forward to error handler
