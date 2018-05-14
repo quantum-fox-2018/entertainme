@@ -1,0 +1,23 @@
+type Movie {
+  _id: String
+  title: String
+  poster_path: String
+  overview: String
+  popularity: Int
+  status: String
+}
+
+type Message {
+  text: String
+}
+
+type Query {
+  movies: [Movie]
+  movie(_id: String): Movie
+}
+
+type Mutation {
+  newMovie(title: String, overview: String, status: String, popularity: Int): Movie
+  deleteMovie(_id: String): Message
+  editMovie(_id: String, title: String, overview: String, status: String, popularity: Int): Message
+}
