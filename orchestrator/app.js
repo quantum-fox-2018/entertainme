@@ -3,6 +3,16 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const bodyParser = require('body-parser');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
+const fs = require('fs');
+const moviesResolver = require('./graphQl/movies/moviesResolver');
+const moviesTypeDef = fs.readFileSync('./graphQl/movies/movies.gql', 'utf-8');
+const schema = makeExecutableSchema({
+  typeDefs: moviesTypeDef,
+  resolvers: moviesResolver
+})
 
 const indexRouter = require('./routes/index');
 const entertainmeRouter = require('./routes/entertainme');
@@ -21,6 +31,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/entertainme', entertainmeRouter);
+
+// The GraphQL endpoint
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+
+// GraphiQL, a visual editor for queries
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
