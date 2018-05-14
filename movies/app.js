@@ -10,8 +10,8 @@ var moviesRouter = require('./routes/movies');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/p3movies')
-// mongoose.connect('mongodb://redismovies:redis123@ds119800.mlab.com:19800/redismovies')
+// mongoose.connect('mongodb://localhost:27017/p3movies')
+mongoose.connect('mongodb://redismovies:redis123@ds119800.mlab.com:19800/redismovies')
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
