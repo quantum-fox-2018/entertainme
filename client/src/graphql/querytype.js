@@ -25,8 +25,8 @@ export const GET_DETAIL_MOVIE = gql`
 `
 
 export const ADD_MOVIE = gql`
-  mutation newMovieAdded($title: String, $overview: String, $status: String) {
-    newMovie(title: $title, overview: $overview, status: $status) {
+  mutation newMovieAdded($title: String, $overview: String, $status: String, $popularity: Int) {
+    newMovie(title: $title, overview: $overview, status: $status, popularity: $popularity) {
       title
       overview
       status
@@ -37,6 +37,14 @@ export const ADD_MOVIE = gql`
 export const DELETE_MOVIE = gql`
   mutation deleteMovieData($_id: String) {
     deleteMovie(_id: $_id) {
+      text
+    } 
+  }
+`
+
+export const EDIT_MOVIE = gql`
+  mutation editMovieData($_id: String, $title: String, $overview: String, $status: String, $popularity: Int) {
+    editMovie(_id: $_id, title: $title, overview: $overview, status: $status, popularity: $popularity) {
       text
     } 
   }

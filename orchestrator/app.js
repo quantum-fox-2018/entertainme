@@ -4,6 +4,7 @@ const createError = require('http-errors'),
       cookieParser = require('cookie-parser'),
       logger = require('morgan'),
       fs = require('fs'),
+      cors= require('cors'),
       { graphiqlExpress, graphqlExpress } = require('apollo-server-express'),
       { makeExecutableSchema } = require('graphql-tools'),
       indexRouter = require('./routes/index'),
@@ -24,6 +25,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

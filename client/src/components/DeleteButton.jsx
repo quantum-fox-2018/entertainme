@@ -13,8 +13,10 @@ export default class DeleteMovie extends Component {
       
         {deleteMovie => (
           <button type="button" 
-                  onClick={ () =>
+                  onClick={ () =>{
                     deleteMovie({ variables: { _id: getId} })
+                    window.location.reload()
+                    }
                   }
           >DELETE</button>
         )}

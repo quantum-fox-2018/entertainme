@@ -62,7 +62,6 @@ const addMovie = async (req, res) => {
 const deleteMovie = async (req, res) => {
   try {
     await axios.delete('http://localhost:3001/movies/' + req.params.id)
-    console.log('masuk')
     checkCache('movies', (err, reply) => {
       if (err) {
         res.status(500).json({ message: err.message })
@@ -82,7 +81,15 @@ const deleteMovie = async (req, res) => {
 
 const editMovie = async (req, res) => {
   try {
-    await axios.put('http://localhost:3001/movies/' + req.params.id)
+    await axios.put('http://localhost:3001/movies/' + req.params.id, {
+      title: req.body.title,
+      overview: req.body.overview,
+      poster_path: req.body.poster_path,
+      popularity: req.body.popularity,
+      status: req.body.status,
+      tag: req.body.tag,
+      text: req.body.text,
+    })
     checkCache('movies', (err, reply) => {
       if (err) {
         res.status(500).json({ message: err.message })
