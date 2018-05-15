@@ -25,7 +25,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.connect(`mongodb://${dbuser}:${dbpassword}@ds119640.mlab.com:19640/entertainme-hacktiv8`, (err) => {
   if(err) return console.log('database error, check user & password')
-  
   console.log('connect to database entertainme-hacktiv8!')
 })
 

@@ -18,7 +18,7 @@ module.exports = {
         movies, tvSeries
       }
 
-      client.set('entertain', JSON.stringify(data), 'EX', 300)
+      client.set('entertainme', JSON.stringify(data), 'EX', 300)
       
       res.status(200).json({
         movies: movies,
