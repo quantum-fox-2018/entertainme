@@ -1,0 +1,21 @@
+type Series {
+  _id: String
+  title: String
+  overview: String
+  poster_path: String
+  popularity: Float
+  tag: [String]
+  status: Int
+  message: String
+}
+
+type Query {
+  series: [Series]
+  tvSeries(_id: String): Series
+}
+
+type Mutation {
+  addSeries(title: String, overview: String, poster_path: String, popularity: Float): Series
+  updateSeries(_id: String, title: String, overview: String, poster_path: String, popularity: Float): Series
+  deleteSeries(_id: String): Series
+}
