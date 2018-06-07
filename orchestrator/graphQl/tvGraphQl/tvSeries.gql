@@ -1,0 +1,8 @@
+type TvSerie {
+  title: String
+  overview: String
+  poster_path: String
+  popularity: Float
+  status: Boolean
+  tags: [String]
+}
